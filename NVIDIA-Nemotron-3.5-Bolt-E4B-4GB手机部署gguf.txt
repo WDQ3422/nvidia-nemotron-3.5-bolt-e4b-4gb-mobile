@@ -1,0 +1,32 @@
+NVIDIA-Nemotron-3.5-Bolt-E4B-4GB手机部署gguf (2)
+NVIDIA-Nemotron-3.5-Bolt-E4B-4GB手机部署gguf
+1. 安装f-droid
+https://f-droid.org
+2.安装termux
+3.打开 Termux
+4.获取权限，执行:
+termux-setup-storage
+5.安装编译依赖：
+pkg update && pkg upgrade -y
+pkg install -y git cmake make clang wget curl libandroid-spawn
+6:（1）安装git:
+pkg install git
+   （2）克隆llama.cpp:
+cd ~
+git clone https://github.com/ggml-org/llama.cpp
+cd llama.cpp
+7:（1）安装make程序:
+pkg install cmake
+   （2）编译llama.cpp:
+cd ~/llama.cpp
+
+cmake -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build --config Release -j 4
+8.下载模型:
+https://huggingface.co/nvidia/NVIDIA-Nemotron-3.5-Bolt-E4B-4GB/resolve/main/Nemotron-3.5-Bolt-E4B-Q4_K_M.gguf
+9.运行模型:
+cd ~/llama.cpp
+./build/bin/llama-server -m ~/storage/downloads/Nemotron-3.5-Bolt-E4B-Q4_K_M.gguf -c 2048
+
+
+
